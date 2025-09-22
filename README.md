@@ -17,6 +17,7 @@ This library is in active development and some breaking changes are expected, bu
 
 | egui_taffy | egui | taffy | MSRV           |
 |------------|------| ---   |----------------|
+| 0.9        | 0.32 | 0.7.7 | 1.85           |
 | 0.8        | 0.32 | 0.7.7 | 1.85           |
 | 0.7        | 0.31 | 0.7.3 | 1.81           |
 | 0.6        | 0.30 | 0.7.3 | 1.81           |

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.0
+
+Support for egui 0.33
+
 ## 0.9.0
 
 - Fixed incorrect scroll area positioning when taffy border has non-zero values

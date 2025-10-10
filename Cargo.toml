@@ -1,6 +1,6 @@
 [package]
 name = "egui_taffy"
-version = "0.9.0"
+version = "0.10.0"
 edition = "2024"
 authors = ["Pēteris Pakalns"]
 repository = "https://github.com/PPakalns/egui_taffy/"
@@ -9,12 +9,12 @@ description = "Grid, Flexbox, Block layout support for egui using taffy"
 keywords = ["egui", "flexbox", "taffy", "layout", "ui"]
 categories = ["gui"]
 license = "MIT"
-rust-version = "1.85"
+rust-version = "1.88"
 exclude = ["/.github", "./examples/web/"]
 
 [dependencies]
 stackbox = "0.2"
-egui = { version = "0.32", default-features = false }
+egui = { version = "0.33.0", default-features = false }
 log = { version = "0.4", default-features = false }
 taffy = { version = "0.7.7", default-features = false, features = [
   "taffy_tree",
@@ -36,9 +36,9 @@ taffy_default = [
 tracing = ["dep:tracing"]
 
 [dev-dependencies]
-wgpu = "25" # enables the wgpu default features so we get the default backends
+wgpu = "27" # enables the wgpu default features so we get the default backends
 
-eframe = { version = "0.32", default-features = false, features = [
+eframe = { version = "0.33.0", default-features = false, features = [
   "accesskit",
   "default_fonts",
   "wgpu",

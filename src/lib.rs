@@ -400,10 +400,10 @@ impl Tui {
         let mut child_ui = self.ui.new_child(ui_builder);
         child_ui.expand_to_include_rect(full_container_without_border);
 
-        if let Some(wrap_mode) = wrap_mode {
-            if child_ui.style().wrap_mode != Some(wrap_mode) {
-                child_ui.style_mut().wrap_mode = Some(wrap_mode);
-            }
+        if let Some(wrap_mode) = wrap_mode
+            && child_ui.style().wrap_mode != Some(wrap_mode)
+        {
+            child_ui.style_mut().wrap_mode = Some(wrap_mode);
         }
 
         let mut bg = background_draw.draw_dyn(&mut child_ui, &self.taffy_container);

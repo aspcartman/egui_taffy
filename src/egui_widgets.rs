@@ -23,7 +23,6 @@ impl_widget!(
     egui::Image<'_>,
     egui::DragValue<'_>,
     egui::Hyperlink,
-    egui::ImageButton<'_>,
     egui::RadioButton<'_>,
     egui::Link,
     egui::Slider<'_>,

@@ -34,7 +34,8 @@ pub struct State {
 }
 
 impl App for MyApp {
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut Frame) {
+    fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut Frame) {
+        let ctx = ui.ctx().clone();
         let state = &mut self.state;
 
         // Enable multipass rendering upon request without drawing to screen
@@ -47,36 +48,36 @@ impl App for MyApp {
         // Disable text wrapping
         //
         // egui text layouting tries to utilize minimal width possible
-        ctx.style_mut(|style| {
+        ctx.global_style_mut(|style| {
             style.wrap_mode = Some(egui::TextWrapMode::Extend);
         });
 
-        ui_side_panel(ctx, state);
+        ui_side_panel(ui, state);
 
-        flex_grid_demo(ctx, state);
+        flex_grid_demo(&ctx, state);
 
-        flex_demo(ctx, state);
+        flex_demo(&ctx, state);
 
-        flex_wrap_demo(ctx, state);
+        flex_wrap_demo(&ctx, state);
 
-        grow_demo(ctx, state);
+        grow_demo(&ctx, state);
 
-        button_demo(ctx, state);
+        button_demo(&ctx, state);
 
-        overflow_demo(ctx, state);
+        overflow_demo(&ctx, state);
 
-        grid_sticky(ctx, state);
+        grid_sticky(&ctx, state);
 
-        virtual_grid_demo(ctx, state);
+        virtual_grid_demo(&ctx, state);
 
-        custom_background_demo(ctx, state);
+        custom_background_demo(&ctx, state);
 
-        holy_grail_demo(ctx, state);
+        holy_grail_demo(&ctx, state);
     }
 }
 
-fn ui_side_panel(ctx: &egui::Context, state: &mut State) {
-    egui::SidePanel::new(egui::panel::Side::Left, "panel").show(ctx, |ui| {
+fn ui_side_panel(ui: &mut egui::Ui, state: &mut State) {
+    egui::panel::Panel::left("panel").show_inside(ui, |ui| {
         tui(ui, ui.id().with("side_panel"))
             .reserve_available_space()
             .style(taffy::Style {

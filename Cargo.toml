@@ -14,7 +14,7 @@ exclude = ["/.github", "./examples/web/"]
 
 [dependencies]
 stackbox = "0.2"
-egui = { version = "0.33.0", default-features = false }
+egui = { version = "0.34.0", default-features = false }
 log = { version = "0.4", default-features = false }
 taffy = { version = "0.7.7", default-features = false, features = [
   "taffy_tree",
@@ -36,9 +36,9 @@ taffy_default = [
 tracing = ["dep:tracing"]
 
 [dev-dependencies]
-wgpu = "27" # enables the wgpu default features so we get the default backends
+wgpu = "29" # enables the wgpu default features so we get the default backends
 
-eframe = { version = "0.33.0", default-features = false, features = [
+eframe = { version = "0.34.0", default-features = false, features = [
   "accesskit",
   "default_fonts",
   "wgpu",

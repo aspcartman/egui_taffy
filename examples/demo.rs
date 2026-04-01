@@ -35,44 +35,43 @@ pub struct State {
 
 impl App for MyApp {
     fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut Frame) {
-        let ctx = ui.ctx().clone();
         let state = &mut self.state;
 
         // Enable multipass rendering upon request without drawing to screen
         //
         // View README for more details
-        ctx.options_mut(|options| {
+        ui.options_mut(|options| {
             options.max_passes = std::num::NonZeroUsize::new(3).unwrap();
         });
 
         // Disable text wrapping
         //
         // egui text layouting tries to utilize minimal width possible
-        ctx.global_style_mut(|style| {
+        ui.global_style_mut(|style| {
             style.wrap_mode = Some(egui::TextWrapMode::Extend);
         });
 
         ui_side_panel(ui, state);
 
-        flex_grid_demo(&ctx, state);
+        flex_grid_demo(ui, state);
 
-        flex_demo(&ctx, state);
+        flex_demo(ui, state);
 
-        flex_wrap_demo(&ctx, state);
+        flex_wrap_demo(ui, state);
 
-        grow_demo(&ctx, state);
+        grow_demo(ui, state);
 
-        button_demo(&ctx, state);
+        button_demo(ui, state);
 
-        overflow_demo(&ctx, state);
+        overflow_demo(ui, state);
 
-        grid_sticky(&ctx, state);
+        grid_sticky(ui, state);
 
-        virtual_grid_demo(&ctx, state);
+        virtual_grid_demo(ui, state);
 
-        custom_background_demo(&ctx, state);
+        custom_background_demo(ui, state);
 
-        holy_grail_demo(&ctx, state);
+        holy_grail_demo(ui, state);
     }
 }
 
@@ -132,7 +131,7 @@ fn ui_side_panel(ui: &mut egui::Ui, state: &mut State) {
     });
 }
 
-fn flex_wrap_demo(ctx: &egui::Context, state: &mut State) {
+fn flex_wrap_demo(ui: &mut egui::Ui, state: &mut State) {
     let default_style = || taffy::Style {
         padding: length(8.),
         gap: length(8.),
@@ -143,7 +142,7 @@ fn flex_wrap_demo(ctx: &egui::Context, state: &mut State) {
 
     egui::Window::new("Flex wrap demo")
         .open(&mut state.show_flex_wrap_demo)
-        .show(ctx, |ui| {
+        .show(ui.ctx(), |ui| {
             tui(ui, ui.id().with("demo"))
                 .reserve_available_space() // Reserve full space of window for this layout
                 .style(taffy::Style {
@@ -211,10 +210,10 @@ fn flex_wrap_demo(ctx: &egui::Context, state: &mut State) {
         });
 }
 
-fn flex_grid_demo(ctx: &egui::Context, state: &mut State) {
+fn flex_grid_demo(ui: &mut egui::Ui, state: &mut State) {
     egui::Window::new("Grid demo")
         .open(&mut state.show_flex_grid_demo)
-        .show(ctx, |ui| {
+        .show(ui.ctx(), |ui| {
             // Style rules can be defined as functions and applied with
             // [`TuiBuilder::mut_style`] function.
             let align_flex_content_in_center = |style: &mut taffy::Style| {
@@ -314,7 +313,7 @@ pub struct GrowVariables {
     padding: f32,
 }
 
-fn grow_demo(ctx: &egui::Context, state: &mut State) {
+fn grow_demo(ui: &mut egui::Ui, state: &mut State) {
     let GrowVariables {
         gap,
         margin,
@@ -327,7 +326,7 @@ fn grow_demo(ctx: &egui::Context, state: &mut State) {
 
     egui::Window::new("Grow demo")
         .open(&mut state.show_grow_demo)
-        .show(ctx, |ui| {
+        .show(ui.ctx(), |ui| {
             // You can mix egui ui with
             ui.horizontal(|ui| {
                 ui.label("Gap");
@@ -397,12 +396,12 @@ fn grow_demo(ctx: &egui::Context, state: &mut State) {
         });
 }
 
-fn flex_demo(ctx: &egui::Context, state: &mut State) {
+fn flex_demo(ui: &mut egui::Ui, state: &mut State) {
     egui::Window::new("Flex demo")
         .scroll(Vec2b { x: true, y: true })
         .open(&mut state.show_flex_demo)
         .default_width(500.)
-        .show(ctx, |ui| {
+        .show(ui.ctx(), |ui| {
             let default_style = || taffy::Style {
                 gap: length(8.),
                 padding: length(8.),
@@ -514,12 +513,12 @@ struct ButtonParams {
     selected: bool,
 }
 
-fn button_demo(ctx: &egui::Context, state: &mut State) {
+fn button_demo(ui: &mut egui::Ui, state: &mut State) {
     let params = &mut state.button_params;
     egui::Window::new("Button demo")
         .scroll(Vec2b { x: true, y: true })
         .open(&mut state.show_button_demo)
-        .show(ctx, |ui| {
+        .show(ui.ctx(), |ui| {
             tui(ui, ui.id().with("button demo"))
                 .reserve_available_width()
                 .style(taffy::Style {
@@ -612,11 +611,11 @@ fn button_demo(ctx: &egui::Context, state: &mut State) {
         });
 }
 
-fn overflow_demo(ctx: &egui::Context, state: &mut State) {
+fn overflow_demo(ui: &mut egui::Ui, state: &mut State) {
     egui::Window::new("Overflow demo")
         .scroll(Vec2b { x: false, y: true })
         .open(&mut state.show_overflow_demo)
-        .show(ctx, |ui| {
+        .show(ui.ctx(), |ui| {
             tui(ui, ui.id().with("overflow demo"))
                 .reserve_available_width()
                 .style(taffy::Style {
@@ -689,11 +688,11 @@ impl Default for OverflowParams {
     }
 }
 
-fn grid_sticky(ctx: &egui::Context, state: &mut State) {
+fn grid_sticky(ui: &mut egui::Ui, state: &mut State) {
     egui::Window::new("Sticky header and column in grid")
         .scroll(Vec2b::FALSE)
         .open(&mut state.show_grid_sticky_demo)
-        .show(ctx, |ui| {
+        .show(ui.ctx(), |ui| {
             tui(ui, ui.id().with("sticky grid demo"))
                 .reserve_available_space()
                 .style(taffy::Style {
@@ -789,10 +788,10 @@ fn grid_sticky(ctx: &egui::Context, state: &mut State) {
         });
 }
 
-fn virtual_grid_demo(ctx: &egui::Context, state: &mut State) {
+fn virtual_grid_demo(ui: &mut egui::Ui, state: &mut State) {
     egui::Window::new("Virtual grid row demo")
         .open(&mut state.show_virtual_grid_demo)
-        .show(ctx, |ui| {
+        .show(ui.ctx(), |ui| {
             tui(ui, ui.id().with("virtual_grid"))
                 .reserve_available_space()
                 .style(taffy::Style {
@@ -895,12 +894,12 @@ fn virtual_grid_demo(ctx: &egui::Context, state: &mut State) {
 /// See [`egui_taffy::bg::simple::TuiBackground`] and
 /// [`egui_taffy::bg::simple::TuiBuilderLogicWithBackground`] implementations
 /// to see how to extend functionality of [`egui_taffy`].`
-fn custom_background_demo(ctx: &egui::Context, state: &mut State) {
+fn custom_background_demo(ui: &mut egui::Ui, state: &mut State) {
     let params = &mut state.button_params;
     egui::Window::new("Custom background demo")
         .open(&mut state.show_background_demo)
         .default_width(500.)
-        .show(ctx, |ui| {
+        .show(ui.ctx(), |ui| {
             tui(ui, ui.id().with("demo"))
                 .reserve_available_space()
                 .style(taffy::Style {
@@ -1111,11 +1110,11 @@ fn custom_background_demo(ctx: &egui::Context, state: &mut State) {
         });
 }
 
-fn holy_grail_demo(ctx: &egui::Context, state: &mut State) {
+fn holy_grail_demo(ui: &mut egui::Ui, state: &mut State) {
     egui::Window::new("Background holy grail demo")
         .open(&mut state.show_holy_grail_demo)
         .default_width(500.)
-        .show(ctx, |ui| {
+        .show(ui.ctx(), |ui| {
             tui(ui, ui.id().with("holy_grail"))
                 .reserve_available_space()
                 .style(taffy::Style {

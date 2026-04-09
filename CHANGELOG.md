@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.11.0
+## 0.12.0
 
 * Upgraded taffy to 0.9.2
 * Sadly egui_taffy now uses unsafe code to handle taffy "calc" logic.

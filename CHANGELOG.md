@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.13.0
+
+* Upgraded to egui 0.35
+
 ## 0.12.0
 
 * Upgraded taffy to 0.9.2

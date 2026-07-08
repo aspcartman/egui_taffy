@@ -185,7 +185,7 @@ impl VirtualGridRowHelper {
             grid_row += 1;
 
             let size = taffy::Size {
-                width: length(0.),
+                width: length(0f32),
                 height: length(height),
             };
 

@@ -6,7 +6,7 @@ use std::ops::{Deref, DerefMut};
 use std::sync::Arc;
 
 use egui::util::IdTypeMap;
-use egui::{Pos2, Response, Ui, UiBuilder};
+use egui::{AsId, Pos2, Response, Ui, UiBuilder};
 use parking_lot::{ArcMutexGuard, RawMutex};
 use taffy::prelude::*;
 use widgets::TaffySeparator;
@@ -1091,7 +1091,7 @@ impl From<&str> for TuiId {
 #[inline]
 pub fn tid<T>(id: T) -> TuiId
 where
-    T: std::hash::Hash,
+    T: AsId,
 {
     TuiId::Hiarchy(egui::Id::new(id))
 }
